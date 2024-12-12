@@ -930,15 +930,11 @@
 
 
 
-
-
-
-
 import streamlit as st
 import base64
 from pathlib import Path
 import os
-print(os.path.exists('assets/image.jpg'))  # Should return True
+print(os.path.exists('image.jpg'))  # Should return True
 
 
 # Must be the first Streamlit command
@@ -1726,7 +1722,7 @@ def set_theme_config():
     """, unsafe_allow_html=True)
 
 def main():
-    set_background('assets/image.jpg')
+    set_background('image.jpg')
     set_custom_styles()
     set_theme_config()
     display_obj = display.Main()
