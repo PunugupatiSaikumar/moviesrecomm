@@ -130,7 +130,7 @@
 
 # def fetch_posters(movie_id):
 #     response = requests.get(
-#         'https://api.themoviedb.org/3/movie/{}?api_key=6177b4297dff132d300422e0343471fb'.format(movie_id))
+#         'https://api.themoviedb.org/3/movie/{}?api_key=076aa064daba31efd326e9d7e5444c2d'.format(movie_id))
 #     data = response.json()
 #     try:
 #         str_ = "https://image.tmdb.org/t/p/w780/" + data['poster_path']
@@ -169,7 +169,7 @@
 
 # def fetch_person_details(id_):
 #     data = requests.get(
-#         'https://api.themoviedb.org/3/person/{}?api_key=6177b4297dff132d300422e0343471fb'.format(id_)).json()
+#         'https://api.themoviedb.org/3/person/{}?api_key=076aa064daba31efd326e9d7e5444c2d'.format(id_)).json()
 
 #     try:
 #         url = 'https://image.tmdb.org/t/p/w220_and_h330_face' + data['profile_path']
@@ -241,7 +241,7 @@
 #     for cast_id in cast_ids[:5]:  # Limit to first 5 cast members
 #         try:
 #             response = requests.get(
-#                 f'https://api.themoviedb.org/3/person/{cast_id}?api_key=6177b4297dff132d300422e0343471fb'
+#                 f'https://api.themoviedb.org/3/person/{cast_id}?api_key=076aa064daba31efd326e9d7e5444c2d'
 #             )
 #             data = response.json()
 #             if data.get('profile_path'):
@@ -510,4 +510,24 @@ def fetch_cast_images(cast_ids):
         except:
             cast_images.append("https://via.placeholder.com/185x278?text=No+Image")
     return cast_images
+
+
+def fetch_actor_movies(actor_id):
+    response = requests.get(
+        f'https://api.themoviedb.org/3/person/{actor_id}/movie_credits?api_key=076aa064daba31efd326e9d7e5444c2d'
+    )
+    data = response.json()
+    movies = []
+    posters = []
+    
+    for movie in data.get('cast', [])[:8]:  # Limit to 8 movies
+        if movie.get('poster_path'):
+            movies.append(movie['title'])
+            poster_url = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
+            posters.append(poster_url)
+            
+    return movies, posters
+
+
+
 
